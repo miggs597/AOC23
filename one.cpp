@@ -1,9 +1,9 @@
-#include <iostream>
-#include <numeric>
-#include <ranges>
 #include <algorithm>
-#include <string>
 #include <cctype>
+#include <iostream>
+#include <ranges>
+#include <string>
+
 
 using namespace std;
 
@@ -18,9 +18,9 @@ auto parse_calibration(const  string &line) -> int {
 }
 
 int main() {
-    auto range = ranges::subrange(istream_iterator<string> { cin }, istream_iterator<string> { })
+    auto range = ranges::views::istream<string>(cin)
         | ranges::views::transform(parse_calibration);
 
-    cout << accumulate(range.begin(), range.end(), 0) << "\n"; 
+    cout << ranges::fold_left(range, 0, std::plus{})<< "\n"; 
     return 0;
 }
